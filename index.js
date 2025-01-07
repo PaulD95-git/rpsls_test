@@ -8,6 +8,11 @@ const choiceButtons = document.querySelectorAll(".choice-button");
 const resetButton = document.getElementById("resetButton");
 const rulesButton = document.getElementById("rulesButton");
 
+// Modal elements for the rules
+const rulesModal = document.getElementById("rulesModal");
+const closeModal = document.getElementById("closeModal");
+
+// Initial scores
 let playerScore = 0;
 let computerScore = 0;
 
@@ -90,7 +95,7 @@ choiceButtons.forEach(button => {
   });
 });
 
-// Reset button functionality
+// Reset button functionality 
 resetButton.addEventListener("click", () => {
   playerScore = 0;
   computerScore = 0;
@@ -102,12 +107,19 @@ resetButton.addEventListener("click", () => {
   resultDisplay.style.color = "#e0e0e0"; // Neutral color
 });
 
-// Rules button functionality (can be expanded with a modal or alert)
+// Rules button functionality (opens the modal with the image)
 rulesButton.addEventListener("click", () => {
-  alert("Rock, Paper, Scissors, Lizard, Spock rules:\n\n" +
-        "1. Rock beats Scissors and Lizard\n" +
-        "2. Paper beats Rock and Spock\n" +
-        "3. Scissors beats Paper and Lizard\n" +
-        "4. Lizard beats Paper and Spock\n" +
-        "5. Spock beats Rock and Scissors");
+  rulesModal.style.display = "block"; // Show the modal
+});
+
+// Close button functionality (closes the modal)
+closeModal.addEventListener("click", () => {
+  rulesModal.style.display = "none"; // Hide the modal
+});
+
+// Close the modal if the user clicks anywhere outside the modal content
+window.addEventListener("click", (event) => {
+  if (event.target === rulesModal) {
+    rulesModal.style.display = "none"; // Hide the modal if clicked outside
+  }
 });
