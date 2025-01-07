@@ -1,0 +1,205 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #121212;
+    color: #e0e0e0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+/* Header Styling */
+h1 {
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    color: #1e90ff;
+}
+
+/* Result Display */
+#result {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #e0e0e0;
+    margin-bottom: 20px;
+}
+
+/* Container for Screens */
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1; /* Allow the container to grow and fill available space */
+    justify-content: center;
+}
+
+/* Screen Display Styling */
+#screenDisplay {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+/* Individual Screens */
+.screen {
+    width: 45%;
+    height: 300px;
+    background-color: #1e1e1e;
+    border: 2px solid #1e90ff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Score Styling */
+.score {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e0e0e0;
+    margin-bottom: 20px;
+}
+
+/* Choice Display Styling */
+.choice-display {
+    font-size: 5rem;
+    color: #1e90ff;
+    text-align: center;
+}
+
+/* Buttons Styling */
+#buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.choice-button {
+    font-size: 2rem;
+    font-weight: bold;
+    width: 140px;
+    height: 140px;
+    border: none;
+    border-radius: 50%;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Hover Effect */
+.choice-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(30, 144, 255, 0.8);
+    background-color: #1e90ff;
+    color: #121212;
+}
+
+/* Active Effect */
+.choice-button:active {
+    transform: scale(0.95);
+}
+
+/* Animation on Load */
+@keyframes buttonPopIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.choice-button {
+    animation: buttonPopIn 0.5s ease;
+}
+
+/* Reset and Rules Buttons */
+#resetButton, #rulesButton {
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    height: 70px;
+}
+
+/* Hover Effects for Bottom Buttons */
+#resetButton:hover, #rulesButton:hover {
+    background-color: #1e90ff;
+    color: #121212;
+}
+
+/* Flexbox Layout for Bottom Buttons (Left and Right) */
+.bottom-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 50px; /* Padding for spacing */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #121212;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #screenDisplay {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .screen {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+
+    #buttons {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .choice-button {
+        width: 100px;
+        height: 100px;
+        font-size: 1.5rem;
+    }
+
+    #resetButton, #rulesButton {
+        font-size: 1.5rem;
+        padding: 15px 30px;
+    }
+
+    .bottom-buttons {
+        padding: 10px 20px; /* Reduce padding on smaller screens */
+    }
+}
