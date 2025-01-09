@@ -35,6 +35,7 @@
     <div class="bottom-buttons">
         <button id="resetButton">Reset</button>
         <button id="rulesButton">Rules</button>
+        <button id="historyButton">History</button> <!-- History Button -->
     </div>
 
     <!-- Modal for Rules -->
@@ -44,6 +45,20 @@
             <img src="rules.JPG" alt="Game Rules" id="rulesImage">
         </div>
     </div>
+
+    <!-- Modal for History -->
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <span id="closeHistoryModal" class="close-button">&times;</span>
+            <h2>Game History</h2>
+            <ul id="historyList">
+                <!-- History will be displayed here -->
+            </ul>
+        </div>
+    </div>
+
+    <button id="funkyButton" class="funky-button">Make it Funky!</button>
+
 
     <script src="index.js"></script>
 </body>

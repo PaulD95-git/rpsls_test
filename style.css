@@ -18,19 +18,80 @@ body {
     height: 100vh;
 }
 
-/* Header Styling */
 h1 {
-    margin-bottom: 20px;
-    font-size: 2.5rem;
+    font-size: 4rem;
+    font-weight: bold;
+    text-transform: uppercase;
     color: #1e90ff;
+    text-shadow: 0 0 15px rgba(30, 144, 255, 0.8), 0 0 30px rgba(10, 74, 218, 0.6);
+    opacity: 0;
+    animation: fadeIn 2s ease-out forwards, glow 3s infinite alternate ease-in-out;
+}
+  
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* Result Display */
-#result {
-    font-size: 2rem;
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 15px rgba(30, 144, 255, 0.8), 0 0 30px rgba(10, 74, 218, 0.6);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(30, 144, 255, 1), 0 0 40px rgba(10, 74, 218, 0.8);
+    }
+}
+
+/* Result Display Styling */
+.result-display {
+    font-size: 3rem;
     font-weight: bold;
     color: #e0e0e0;
-    margin-bottom: 20px;
+    margin-top: 100px;
+    text-align: center;
+    transition: all 0.4s ease-in-out;
+    animation: fadeInGlow 1s ease-in-out;
+}
+
+/* Glow Effects */
+.result-display.green-glow {
+    color: #00ff00;
+    text-shadow: 0 0 12px #00ff00, 0 0 25px #00ff00, 0 0 50px #00ff00, 0 0 100px #00ff00;
+}
+
+.result-display.red-glow {
+    color: #ff0000;
+    text-shadow: 0 0 12px #ff0000, 0 0 25px #ff0000, 0 0 50px #ff0000, 0 0 100px #ff0000;
+}
+
+.result-display.tie-glow {
+    color: #e0e0e0;
+    text-shadow: 0 0 12px #ffffff, 0 0 25px rgba(255, 255, 255, 0.8), 0 0 50px #ffffff, 0 0 100px #ffffff;
+}
+
+/* Fade In and Glow Animation */
+@keyframes fadeInGlow {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+        text-shadow: none;
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(0);
+        text-shadow: 0 0 8px #ffffff, 0 0 16px #ffffff;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        text-shadow: 0 0 12px #ffffff, 0 0 25px #ffffff, 0 0 50px #ffffff;
+    }
 }
 
 /* Container for Screens */
@@ -38,7 +99,7 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex-grow: 1; /* Allow the container to grow and fill available space */
+    flex-grow: 1;
     justify-content: center;
 }
 
@@ -120,24 +181,8 @@ h1 {
     transform: scale(0.95);
 }
 
-/* Animation on Load */
-@keyframes buttonPopIn {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-.choice-button {
-    animation: buttonPopIn 0.5s ease;
-}
-
 /* Reset and Rules Buttons */
-#resetButton, #rulesButton {
+#resetButton, #rulesButton, #historyButton {
     font-size: 2.5rem;
     font-weight: bold;
     padding: 20px 40px;
@@ -149,21 +194,28 @@ h1 {
     transition: background-color 0.3s ease, color 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     height: 70px;
+    width: auto; /* Ensure it does not have a fixed width */
 }
 
 /* Hover Effects for Bottom Buttons */
-#resetButton:hover, #rulesButton:hover {
+#resetButton:hover, #rulesButton:hover, #historyButton:hover {
     background-color: #1e90ff;
     color: #121212;
 }
 
-/* Flexbox Layout for Bottom Buttons (Left and Right) */
+/* Active Effect for Bottom Buttons */
+#resetButton:active, #rulesButton:active, #historyButton:active {
+    transform: scale(0.95);
+}
+
+/* Flexbox Layout for Bottom Buttons */
 .bottom-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center all buttons horizontally */
+    gap: 20px; /* Add spacing between buttons */
     align-items: center;
     width: 100%;
-    padding: 10px 50px; /* Padding for spacing */
+    padding: 10px 50px;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -173,15 +225,15 @@ h1 {
 
 /* Modal Styling */
 .modal {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
-    z-index: 1; /* Sit on top */
+    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Black background with opacity */
-    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow: auto;
     padding-top: 50px;
 }
 
@@ -202,6 +254,12 @@ h1 {
     border-radius: 10px;
 }
 
+#historyList {
+    list-style: none;
+    padding: 0;
+    color: #e0e0e0;
+}
+
 .close-button {
     position: absolute;
     top: 10px;
@@ -218,35 +276,99 @@ h1 {
     color: #1e90ff;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    #screenDisplay {
-        flex-direction: column;
-        align-items: center;
-    }
+/* Flexbox Layout for Bottom Buttons */
+.bottom-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 50px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #121212;
+}
 
-    .screen {
-        width: 80%;
-        margin-bottom: 20px;
-    }
+/* Funky colors effect for the body and all elements */
+.funky {
+    background: linear-gradient(45deg, #ff6347, #ff00ff, #00ff00, #00ffff, #ffff00, #ff4500);
+    background-size: 400% 400%;
+    animation: funkyBackground 5s infinite;
+}
 
-    #buttons {
-        flex-wrap: wrap;
-        gap: 15px;
-    }
+.funky * {
+    animation: funkyText 3s infinite alternate;
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.5);
+}
 
-    .choice-button {
-        width: 100px;
-        height: 100px;
-        font-size: 1.5rem;
-    }
+/* Funky button positioning */
+.funky-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #ff1493;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    z-index: 1000; /* Ensure it's always above other content */
+}
 
-    #resetButton, #rulesButton {
-        font-size: 1.5rem;
-        padding: 15px 30px;
-    }
+.funky-button:hover {
+    background-color: #ff69b4;
+    transform: scale(1.1);
+}
 
-    .bottom-buttons {
-        padding: 10px 20px; /* Reduce padding on smaller screens */
+/* Apply funky styles only to the button when the funky class is active */
+.funky .funky-button {
+    background: linear-gradient(45deg, #ff6347, #ff00ff, #00ff00);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Funky animation for all text */
+@keyframes funkyText {
+    0% {
+        transform: rotate(0deg);
+        color: white;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.5);
     }
+    50% {
+        transform: rotate(10deg);
+        color: #ff6347;
+        text-shadow: 0 0 10px rgba(255, 99, 71, 0.7), 0 0 20px rgba(255, 99, 71, 0.5);
+    }
+    100% {
+        transform: rotate(-10deg);
+        color: #00ff00;
+        text-shadow: 0 0 10px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.5);
+    }
+}
+
+/* Funky animation for buttons and interactive elements */
+.funky .choice-button, 
+.funky #resetButton, 
+.funky #rulesButton, 
+.funky #historyButton, 
+.funky .funky-button {
+    transform: rotate(15deg);
+    transition: all 0.3s ease;
+    background: linear-gradient(45deg, #ff6347, #ff00ff, #00ff00);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Hover effects for funky buttons */
+.funky .choice-button:hover, 
+.funky #resetButton:hover, 
+.funky #rulesButton:hover, 
+.funky #historyButton:hover, 
+.funky .funky-button:hover {
+    transform: scale(1.2) rotate(0deg);
+    background: linear-gradient(45deg, #ff6347, #ff00ff, #ff4500);
 }
